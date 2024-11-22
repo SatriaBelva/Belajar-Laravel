@@ -1,6 +1,8 @@
 <?php
 
 use App\Models\Post;
+use App\Models\Blogspot;
+use App\Models\User;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Route;
 
@@ -9,7 +11,7 @@ Route::get('/', function () {
 });
 
 Route::get('/home', function () {
-    return view('home', ['URLTitle'=>'Halaman Home', 'judul' => 'Home Page', 'dataLain' => 'Testing']);
+    return view('home', ['URLTitle'=>'Halaman Home', 'judul' => 'Home Page', 'dataLain' => 'Testing', 'user' => User::all()]);
 });
 
 Route::get('/about', function () {
@@ -17,13 +19,13 @@ Route::get('/about', function () {
 });
 
 Route::get('/posts', function () {
-    return view('posts', ['URLTitle'=>'Halaman Blog', 'judul' => 'Blog', 'posts' => Post::all()]);
+    return view('posts', ['URLTitle'=>'Halaman Blog', 'judul' => 'Blog', 'posts' => Blogspot::all()]);
 });
 
-Route::get('/posts/{slug}', function ($slug) {
-    $post = Post::find($slug);
+Route::get('/posts/{blogspot:slug}', function (Blogspot $blogspot) {
+    // $post = Post::find($id);
 
-    return view('post', ['URLTitle'=>'Halaman Artikel', 'judul' => 'Single Post', 'post' => $post]);
+    return view('post', ['URLTitle'=>'Halaman Artikel', 'judul' => 'Single Post', 'blogspot' => $blogspot]);
 });
 
 Route::get('/teams', function () {

@@ -4,13 +4,13 @@
     <x-slot:URL>{{ $URLTitle }}</x-slot:URL> 
 
     @foreach ($posts as $post)
-    <article class="py-8 w-screen-md border-b border-gray-300">
+    <article class="py-8 w-screen-md border-b border-gray-300 text-justify">
         <a href="/posts/{{ $post['slug'] }}">
-            <h2 class="mb-1 text-3xl tracking-tight font-bold text-gray-900">{{ $post['judul'] }}</h2>
+            <h2 class="mb-1 text-3xl tracking-tight font-bold text-gray-900">{{ $post['title'] }}</h2>
         </a>
         
         <div class="text-base text-gray-500">
-            <a href="https://instagram.com/satriabelva" target="blank">{{ $post['author'] }}</a> | 31 Agustus 2024
+            <a href="https://instagram.com/satriabelva" target="blank">{{ $post['author'] }}</a> | {{ $post->created_at->format('d F Y') }} {{ $post->created_at->diffForHumans() }}
         </div>
         <a href="/posts/{{ $post['slug'] }}">
             <p class="my-4 font-light">{{ Str::limit($post['body'], 200) }}</p>
