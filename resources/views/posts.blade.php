@@ -10,7 +10,7 @@
         </a>
         
         <div class="text-base text-gray-500">
-            <a href="https://instagram.com/satriabelva" target="blank">{{ $post['author'] }}</a> | {{ $post->created_at->format('d F Y') }} {{ $post->created_at->diffForHumans() }}
+            <a class="hover:underline" href="/authors/{{ $post->author->username }}">{{ $post->author->name }}  </a> in <a href="/category/{{ $post->category->slug }}">{{ $post->category->name }}</a>  | {{ $post->created_at->format('d F Y') }} {{ $post->created_at->diffForHumans() }}
         </div>
         <a href="/posts/{{ $post['slug'] }}">
             <p class="my-4 font-light">{{ Str::limit($post['body'], 200) }}</p>

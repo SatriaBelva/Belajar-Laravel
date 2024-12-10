@@ -10,6 +10,7 @@
                 <td>ID</td>
                 <td>Nama</td>
                 <td>Email</td>
+                <td>Username</td>
                 <td>Passsword</td>
             </tr>
         </thead>
@@ -24,6 +25,9 @@
                 </td>
                 <td>
                     {{ $individual['email'] }} 
+                </td>
+                <td>
+                    {{ $individual['username'] }} 
                 </td>
                 <td>
                     {{ $individual['password'] }} 

@@ -24,10 +24,13 @@ class UserFactory extends Factory
      */
     public function definition(): array
     {
+        $name = fake()->name();
+        $username = str_replace(" ", "", $name);
+
         return [
-            'name' => fake()->name(),
-            'email' => fake()->unique()->safeEmail(),
-            // 'is_admin' => 
+            'name' => $name,
+            'username' => $username,
+            'email' => $username . '@mail.unej.ac.id',
             'email_verified_at' => now(),
             'password' => static::$password ??= Hash::make('password'),
             'remember_token' => Str::random(10),

@@ -2,8 +2,10 @@
 
 namespace Database\Factories;
 
-use Illuminate\Database\Eloquent\Factories\Factory;
+use App\Models\User;
+use App\Models\category;
 use Illuminate\Support\Str;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Blogspot>
@@ -20,7 +22,8 @@ class BlogspotFactory extends Factory
         $title = fake()->sentence(7);
         return [
             'title' => $title,
-            'author' => fake()->name(),
+            'author_id' => User::factory(),
+            'category_id' => Category::factory(),
             'slug' =>  Str::slug($title),
             'body' => fake()->text(200)   
         ];

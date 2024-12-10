@@ -1,13 +1,27 @@
 <?php
 
-use App\Models\Post;
 use App\Models\Blogspot;
+use App\Models\Category;
 use App\Models\User;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Route;
 
+Route::get('/testing', function () {
+    return view('testing', ['URLTitle'=>'Halaman Blog', 
+                            'judul' => 'Blog', 
+                            'posts' => Blogspot::all()]);
+});
+
+Route::get('/testingwithuser/{user:id}', function (User $user) {
+    // dd($user);
+    return view('testingwithuser', ['URLTitle'=>'Halaman Blog', 
+                            'judul' => 'Blog', 
+                            'posts' => Blogspot::all(),
+                            'user' => $user]);
+});
+
 Route::get('/', function () {
-    return view('home', ['URLTitle'=>'Halaman Home', 'judul' => 'Home Page', 'dataLain' => 'Testing']);
+    return view('home', ['URLTitle'=>'Halaman Home', 'judul' => 'Home Page', 'dataLain' => 'Testing', 'user' => User::all()]);
 });
 
 Route::get('/home', function () {
@@ -19,13 +33,32 @@ Route::get('/about', function () {
 });
 
 Route::get('/posts', function () {
-    return view('posts', ['URLTitle'=>'Halaman Blog', 'judul' => 'Blog', 'posts' => Blogspot::all()]);
+    return view('posts', ['URLTitle'=>'Halaman Blog', 
+                          'judul' => 'Blog', 
+                          'posts' => Blogspot::all()]);
 });
 
 Route::get('/posts/{blogspot:slug}', function (Blogspot $blogspot) {
-    // $post = Post::find($id);
+    return view('post', ['URLTitle'=>'Halaman Artikel', 
+                         'judul' => 'Single Post', 
+                         'blogspot' => $blogspot]);
+});
 
-    return view('post', ['URLTitle'=>'Halaman Artikel', 'judul' => 'Single Post', 'blogspot' => $blogspot]);
+Route::get('/authors/{user:username}', function (User $user) { 
+    return view('posts', ['URLTitle'=>'Halaman Artikel', 
+                          'judul' => count($user->post).' Article By '. $user->name . " @".$user->username, 
+                          'posts' => $user->post]);
+});
+
+// {user:username} artinya Cari data di model User dengan mencocokkan kolom username
+// $ Variabel $user berisi satu baris data pada tabel user
+// 'posts' => $user->post post adalah method yang menunjukkan relasi antar model
+// Laravel membaca john-doe dari URL
+// Laravel mencocokkan john-doe dengan kolom username di tabel users.
+// Laravel mengambil baris data yang sesuai dan membuat instance model User untuk diberikan ke variabel $user.
+
+Route::get('/category/{category:slug}', function (Category $category) { 
+    return view('posts', ['URLTitle'=>'Halaman Artikel', 'judul' => count($category->post).' Artikel Dengan Kategori '. $category->name, 'posts' => $category->post]);
 });
 
 Route::get('/teams', function () {
